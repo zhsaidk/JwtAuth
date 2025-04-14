@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: JwtAuth
+  config:
+    import: env.yaml
