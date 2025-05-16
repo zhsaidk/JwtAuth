@@ -14,15 +14,18 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        return new org.springframework.security.core.userdetails.User(
-                email,
+        return UserDetailsImpl.build(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
                 user.getPassword(),
                 Set.of(user.getRole())
         );

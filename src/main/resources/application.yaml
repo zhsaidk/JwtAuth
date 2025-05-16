@@ -3,3 +3,9 @@ spring:
     name: JwtAuth
   config:
     import: env.yaml
+
+  datasource:
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    driver-class-name: org.postgresql.Driver
